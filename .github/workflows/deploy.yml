@@ -10,6 +10,7 @@ on:
 
 jobs:
   deploy:
+    environment: Test_DEV
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,11 +27,26 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Get package version
+        id: get_version
+        run: echo "version=$(node -p -e "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - name: Deploy application
         env:
           TAG: ${{ github.ref }}
         run: |
           echo "Deploying version $TAG"
+
+      # - name: Create Release With Deployment 
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.PAT }}
+      #   with:
+      #     tag_name: ${{ steps.get_version.outputs.version }}
+      #     release_name: Release ${{ steps.get_version.outputs.version }}
+      #     draft: false
+      #     prerelease: false
          
 
       - name: Notify deployment success
