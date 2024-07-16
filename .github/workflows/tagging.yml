@@ -21,6 +21,18 @@ jobs:
       
       - name: Install dependencies
         run: npm install
+
+      - name: Check if tag exists
+        id: tag_exists
+        run: |
+          TAG_EXISTS=$(git tag --list "${{ steps.get_version.outputs.version }}")
+          if [ -z "$TAG_EXISTS" ]; then
+            echo "Tag does not exist"
+            echo "::set-output name=exists::false"
+          else
+            echo "Tag exists"
+            echo "::set-output name=exists::true"
+          fi
       
       - name: Get package version
         id: get_version
@@ -33,6 +45,7 @@ jobs:
           git status
       
       - name: Create and push tag
+        if: steps.tag_exists.outputs.exists == 'false'      
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
@@ -41,3 +54,7 @@ jobs:
           VERSION=${{ steps.get_version.outputs.version }}
           git tag $VERSION
           git push origin $VERSION
+
+      - name: Skip tag creation
+        if: steps.tag_exists.outputs.exists == 'true'
+        run: echo "Tag ${{ steps.get_version.outputs.version }} already exists. Skipping tag creation."
