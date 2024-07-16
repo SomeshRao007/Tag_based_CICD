@@ -1,8 +1,11 @@
 name: Tagging Workflow
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      commit_id:
+      description: 'Commit ID to tag'
+      required: true
+      default: ''
 jobs:
   tag-version:
     environment: Test_DEV
