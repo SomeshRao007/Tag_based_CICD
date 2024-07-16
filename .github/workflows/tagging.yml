@@ -1,38 +1,43 @@
 name: Tagging Workflow
-
 on:
   push:
     branches:
       - main
-
 jobs:
   tag-version:
     environment: Test_DEV
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
+          token: ${{ secrets.PAT }}
+      
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-
+      
       - name: Install dependencies
         run: npm install
-
+      
       - name: Get package version
         id: get_version
-        run: echo "::set-output name=version::$(node -p -e "require('./package.json').version")"
+        run: echo "version=$(node -p -e "require('./package.json').version")" >> $GITHUB_OUTPUT
 
-      - name: Create tag
+      - name: Debug information
+        run: |
+          git remote -v
+          git branch
+          git status
+      
+      - name: Create and push tag
         env:
-          VERSION: ${{ steps.get_version.outputs.version }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          VERSION=${{ steps.get_version.outputs.version }}
           git tag $VERSION
-          git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git $VERSION
+          git push origin $VERSION
