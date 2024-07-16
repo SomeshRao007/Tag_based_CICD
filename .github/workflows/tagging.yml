@@ -30,7 +30,7 @@ jobs:
           VERSION: ${{ steps.get_version.outputs.version }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
-          git config --global user.email "cokasomeshrao@outlook.com"
+          # git config --global user.email "cokasomeshrao@outlook.com"
           git config --global user.name "SomeshRao007"
           git tag $VERSION
           git push origin $VERSION
