@@ -7,6 +7,7 @@ on:
 
 jobs:
   tag-version:
+    environment: Test_DEV
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
@@ -27,8 +28,9 @@ jobs:
       - name: Create tag
         env:
           VERSION: ${{ steps.get_version.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
-          # git config --global user.email "your-email@example.com"
-          # git config --global user.name "your-github-username"
-          # git tag $VERSION
-          # git push origin $VERSION
+          git config --global user.email "cokasomeshrao@outlook.com"
+          git config --global user.name "SomeshRao007"
+          git tag $VERSION
+          git push origin $VERSION
