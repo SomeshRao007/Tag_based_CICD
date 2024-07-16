@@ -1,0 +1,37 @@
+{
+  "name": "example-project",
+  "version": "1.0.1",
+  "description": "An example project to illustrate package.json structure",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "example",
+    "nodejs",
+    "package.json"
+  ],
+  "author": "John Doe",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+
+https://github.com/username/example-project.git"
+  },
+  "bugs": {
+    "url": "
+https://github.com/username/example-project/issues"
+  },
+  "homepage": "
+https://github.com/username/example-project#readme"
+}
