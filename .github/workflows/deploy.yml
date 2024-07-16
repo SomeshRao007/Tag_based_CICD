@@ -1,0 +1,36 @@
+name: Deployment Workflow
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
+      - name: Deploy application
+        env:
+          TAG: ${{ github.ref }}
+        run: |
+          echo "Deploying version $TAG"
+          # Add your deployment steps here, e.g., deploying to a server or cloud service
+          # For example:
+          # scp -r ./dist user@your-server:/path/to/deploy
+
+      - name: Notify deployment success
+        run: echo "Deployment of version $TAG completed successfully."
