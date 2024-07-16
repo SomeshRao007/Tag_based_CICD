@@ -1,9 +1,12 @@
 name: Deployment Workflow
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
+    inputs:
+      tag_id:
+        description: 'give a tag ID here'
+        required: true
+        default: ''
 
 jobs:
   deploy:
