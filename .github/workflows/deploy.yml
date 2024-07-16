@@ -31,9 +31,7 @@ jobs:
           TAG: ${{ github.ref }}
         run: |
           echo "Deploying version $TAG"
-          # Add your deployment steps here, e.g., deploying to a server or cloud service
-          # For example:
-          # scp -r ./dist user@your-server:/path/to/deploy
+         
 
       - name: Notify deployment success
         run: echo "Deployment of version $TAG completed successfully."
