@@ -25,13 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+
-https://github.com/username/example-project.git"
+    "url": "https://github.com/username/example-project.git"
   },
   "bugs": {
-    "url": "
-https://github.com/username/example-project/issues"
+    "url": "https://github.com/username/example-project/issues"
   },
-  "homepage": "
-https://github.com/username/example-project#readme"
+  "homepage": "https://github.com/username/example-project#readme"
 }
