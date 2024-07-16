@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       commit_id:
-        description: 'Commit ID to tag'
+        description: 'give a commit ID here'
         required: true
         default: ''
 jobs:
