@@ -15,18 +15,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build application
-        run: npm run build
-
+          
       - name: Get package version
         id: get_version
         run: echo "version=$(node -p -e "require('./package.json').version")" >> $GITHUB_OUTPUT
@@ -36,17 +25,9 @@ jobs:
           TAG: ${{ github.ref }}
         run: |
           echo "Deploying version $TAG"
+          echo "Contents of index.html:"
+          cat index.html
 
-      # - name: Create Release With Deployment 
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.PAT }}
-      #   with:
-      #     tag_name: ${{ steps.get_version.outputs.version }}
-      #     release_name: Release ${{ steps.get_version.outputs.version }}
-      #     draft: false
-      #     prerelease: false
          
 
       - name: Notify deployment success
