@@ -1,6 +1,6 @@
 {
   "name": "example-project",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "An example project to illustrate package.json structure",
   "main": "index.js",
   "scripts": {
