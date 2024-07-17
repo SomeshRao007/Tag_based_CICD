@@ -73,8 +73,7 @@ jobs:
           echo "Deploying version $TAG"
           echo "Contents of index.html:"
           cat index.html
+          echo "Deployment of version $TAG completed successfully."
 
-         
 
-      - name: Notify deployment success
-        run: echo "Deployment of version $TAG completed successfully."
+        
